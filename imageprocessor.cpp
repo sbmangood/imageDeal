@@ -155,7 +155,7 @@ QString ImageProcessor::sourceFile()const
 
 ImageProcessor::ImageAlgorithm ImageProcessor::algorithm() const
 {
-    return m_d->m_tempPath;
+    return m_d->m_notifiedAlgorithm;
 }
 
 void ImageProcessor::setTempPath(QString tempPath)
@@ -238,7 +238,7 @@ static void _binarize(QString sourceFile,QString destFile)
     QRgb color;
     QRgb avg;
     QRgb black=qRgb(0,0,0);
-    qRgb white=qRgb(255,255,255);
+    QRgb white=qRgb(255,255,255);
 
 
 
