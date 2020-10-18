@@ -180,3 +180,154 @@ void ImageProcessor::abort(QString file,ImageAlgorithm alg)
         }
     }
 }
+
+static void _gray(QString sourceFile,QString destFile)
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+
+    QRgb color;
+    int gray;
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            gray=qGray(color);
+            image.setPixel(i,j,qRgba(gray,gray,gray,qAlpha(color)));
+        }
+    }
+    image.save(destFile);
+}
+static void _negative(QString sourceFile,QString destFile)//_binarize
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+    QRgb color;
+    QRgb negative;
+
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            negative=qRgba(255-qRed(color),255-qGreen(color),
+                           255-qBlue(color),qAlpha(color));
+            image.setPixel(i,j,negative);
+        }
+    }
+    image.save(destFile);
+}
+static void _binarize(QString sourceFile,QString destFile)
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+    QRgb color;
+    QRgb avg;
+    QRgb black=qRgb(0,0,0);
+    qRgb white=qRgb(255,255,255);
+
+
+
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            avg=(qRed(color)+qGreen(color)+qBlue(color))/3;
+            image.setPixel(i,j,avg>=128 ? white : black);
+        }
+    }
+    image.save(destFile);
+}
+static void _emboss(QString sourceFile,QString destFile)
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+    QRgb color;
+
+    QRgb preColor=0;
+    QRgb newColor;
+    int gray,r,g,b,a;
+
+
+
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            r=qRed(color)-qRed(preColor)+128;
+            g=qGreen(color)-qGreen(preColor)+128;
+            b=qBlue(color)-qBlue(preColor)+128;
+            a=qAlpha(color);
+            gray=qGray(r,g,b);
+            newColor=qRgba(gray,gray,gray,a);
+            image.setPixel(i,j,newColor);
+            preColor=newColor;
+        }
+    }
+    image.save(destFile);
+}
+static void _sharpen(QString sourceFile,QString destFile)
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+    QRgb color;
+    QRgb negative;
+
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            negative=qRgba(255-qRed(color),255-qGreen(color),
+                           255-qBlue(color),qAlpha(color));
+            image.setPixel(i,j,negative);
+        }
+    }
+    image.save(destFile);
+}
+static void _soften(QString sourceFile,QString destFile)
+{
+    QImage image(sourceFile);
+    if(image.isNull()){
+        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        return;
+    }
+    int w=image.width();
+    int h=image.width();
+    QRgb color;
+    QRgb negative;
+
+    for(int i=0;i<w;i++)
+    {
+        for(int j=0;j<h;j++){
+            color=image.pixel(i,j);
+            negative=qRgba(255-qRed(color),255-qGreen(color),
+                           255-qBlue(color),qAlpha(color));
+            image.setPixel(i,j,negative);
+        }
+    }
+    image.save(destFile);
+}
