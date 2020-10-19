@@ -120,8 +120,9 @@ public:
     void process(QString sourceFile,ImageProcessor::ImageAlgorithm alg)
     {
         QFileInfo fi(sourceFile);
-        QString destFile=QString("$1/%2_%3").arg(m_tempPath).arg((int)alg).arg(fi.fileName());
+        QString destFile=QString("%1/%2_%3").arg(m_tempPath).arg((int)alg).arg(fi.fileName());
 
+        qDebug()<<"destFile "<<destFile;
         AlgorithmRunnable *r=new AlgorithmRunnable(sourceFile,destFile,alg,this);
         m_runnables.append(r);
         r->setAutoDelete(false);
@@ -183,13 +184,16 @@ void ImageProcessor::abort(QString file,ImageAlgorithm alg)
 
 static void _gray(QString sourceFile,QString destFile)
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+
+    QImage image(sourceFile.mid(8,-1));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
 
     QRgb color;
     int gray;
@@ -205,13 +209,15 @@ static void _gray(QString sourceFile,QString destFile)
 }
 static void _negative(QString sourceFile,QString destFile)//_binarize
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+    QImage image(sourceFile.mid(8));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
     QRgb color;
     QRgb negative;
 
@@ -228,13 +234,15 @@ static void _negative(QString sourceFile,QString destFile)//_binarize
 }
 static void _binarize(QString sourceFile,QString destFile)
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+    QImage image(sourceFile.mid(8,-1));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
     QRgb color;
     QRgb avg;
     QRgb black=qRgb(0,0,0);
@@ -254,13 +262,15 @@ static void _binarize(QString sourceFile,QString destFile)
 }
 static void _emboss(QString sourceFile,QString destFile)
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+    QImage image(sourceFile.mid(8));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
     QRgb color;
 
     QRgb preColor=0;
@@ -287,13 +297,15 @@ static void _emboss(QString sourceFile,QString destFile)
 }
 static void _sharpen(QString sourceFile,QString destFile)
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+    QImage image(sourceFile.mid(8));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
     QRgb color;
     QRgb negative;
 
@@ -310,13 +322,15 @@ static void _sharpen(QString sourceFile,QString destFile)
 }
 static void _soften(QString sourceFile,QString destFile)
 {
-    QImage image(sourceFile);
+    if(sourceFile.size()<9)
+        return;
+    QImage image(sourceFile.mid(8));
     if(image.isNull()){
-        qDebug()<<"Load "<<sourceFile<<" fauked!";
+        qDebug()<<"Load "<<sourceFile<<" failed!";
         return;
     }
     int w=image.width();
-    int h=image.width();
+    int h=image.height();
     QRgb color;
     QRgb negative;
 

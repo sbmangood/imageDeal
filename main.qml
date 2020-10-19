@@ -1,4 +1,4 @@
-import QtQuick 2.9
+import QtQuick 2.2
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.1
 import my.ImageProcessor 1.0
@@ -29,7 +29,7 @@ Rectangle{
         asynchronous: true;
         anchors.fill: parent;
         fillMode: Image.PreserveAspectFit;
-        onStateChanged: {
+        onStatusChanged: {
             if(imageViewer.status===Image.Loading){
                 busy.running=true;
                 stateLabel.visible=false;
