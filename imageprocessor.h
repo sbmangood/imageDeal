@@ -23,6 +23,8 @@ public:
 
     //增加branch2
 
+    //测试分支
+
 
     enum ImageAlgorithm{
         Gray=0,                 //灰色
