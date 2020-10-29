@@ -17,7 +17,7 @@ class ImageProcessor : public QObject
 public:
     explicit ImageProcessor(QObject *parent = nullptr);
     ~ImageProcessor();
-
+    //增加branch
 
     enum ImageAlgorithm{
         Gray=0,                 //灰色
