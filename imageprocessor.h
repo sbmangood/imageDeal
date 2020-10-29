@@ -17,6 +17,13 @@ class ImageProcessor : public QObject
 public:
     explicit ImageProcessor(QObject *parent = nullptr);
     ~ImageProcessor();
+    //增加branch
+
+    //main change
+
+    //增加branch2
+
+    //测试分支
 
 
     enum ImageAlgorithm{
