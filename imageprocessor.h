@@ -18,7 +18,12 @@ public:
     explicit ImageProcessor(QObject *parent = nullptr);
     ~ImageProcessor();
     //增加branch
+
     //main change
+
+    //增加branch2
+
+
     enum ImageAlgorithm{
         Gray=0,                 //灰色
         Binarize,               //黑白
